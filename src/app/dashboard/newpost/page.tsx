@@ -1,22 +1,33 @@
 "use client"
-const Editor = dynamic(() => import('../_components/MyEditor'), {
-  ssr: false,
-});
+
+import React, { useState, useRef, forwardRef } from 'react';
+import dynamic from "next/dynamic";
 import { useSession } from 'next-auth/react';
-import React, { useState, useRef } from 'react';
 import { Button } from '~/components/ui/button';
 import { api } from '~/trpc/react';
 import FloatingButton from '../_components/FloatingButton';
 import { Send, Save } from 'lucide-react';
 import toast from 'react-hot-toast';
-import dynamic from "next/dynamic";
+import { Editor as TuiEditor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+
+const DynamicEditor = dynamic(
+  () => import('../_components/MyEditor'),
+  { ssr: false }
+);
+
+const EditorWrapper = forwardRef<TuiEditor, any>((props, ref) => (
+  <DynamicEditor {...props} forwardedRef={ref} />
+));
+
+EditorWrapper.displayName = 'EditorWrapper';
 
 export default function NewPost() {
   const { data: session } = useSession();
-  const [message, setMessage] = useState('');
   const [title, setTitle] = useState('');
-  const editorRef = useRef<typeof Editor.defaultProps>(null);
+  const editorRef = useRef<TuiEditor>(null);
   const mail = api.mail.sendMail.useMutation();
+  console.log('loaded');
 
   const handleSelection = (idea: string) => {
     if (editorRef.current) {
@@ -26,9 +37,11 @@ export default function NewPost() {
   };
 
   const handlePublish = () => {
+    console.log('sent');
     if (editorRef.current) {
       const editor = editorRef.current.getInstance();
       const content = editor.getHTML();
+
       toast.promise(
         mail.mutateAsync({ subject: title, message: content }),
         {
@@ -36,9 +49,7 @@ export default function NewPost() {
           success: 'Newsletter sent successfully!',
           error: 'Failed to send newsletter',
         }
-
-      )
-    
+      );
     }
   };
 
@@ -46,24 +57,23 @@ export default function NewPost() {
     <div className="max-w-screen h-screen mx-auto p-6 bg-white shadow-lg rounded-lg">
       <div className='mb-6 flex justify-between'>
         <div>
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Create Your Newsletter</h1>
-        <p className="text-gray-600">Craft your message and reach your audience.</p>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">Create Your Newsletter</h1>
+          <p className="text-gray-600">Craft your message and reach your audience.</p>
         </div>
-      <div className='mt-6 flex space-x-6 items-center'>
-        <Button variant="outline" className="flex items-center">
-          <Save className="mr-2 h-4 w-4" />
-          Save Draft
-        </Button>
-        <Button 
-          disabled={!session?.user?.email} 
-          onClick={handlePublish}
-          className="flex items-center bg-blue-500 hover:bg-blue-600 text-white"
-        >
-          <Send className="mr-2 h-4 w-4" />
-          Publish Newsletter
-        </Button>
-      </div>
-
+        <div className='mt-6 flex space-x-6 items-center'>
+          <Button variant="outline" className="flex items-center">
+            <Save className="mr-2 h-4 w-4" />
+            Save Draft
+          </Button>
+          <Button 
+            disabled={!session?.user?.email}
+            onClick={handlePublish}
+            className="flex items-center bg-blue-500 hover:bg-blue-600 text-white"
+          >
+            <Send className="mr-2 h-4 w-4" />
+            Publish Newsletter
+          </Button>
+        </div>
       </div>
 
       <div className="mb-4">
@@ -76,12 +86,12 @@ export default function NewPost() {
         />
       </div>
 
-      <Editor 
+      <EditorWrapper
         ref={editorRef}
-        initialValue="Start writing your newsletter here..."   
+        initialValue="Start writing your newsletter here..."
         previewStyle="vertical"
         height="500px"
-        initialEditType="wsiwyg"
+        initialEditType="wysiwyg"
         useCommandShortcut={true}
         className="border border-gray-300 rounded-md overflow-hidden"
       />

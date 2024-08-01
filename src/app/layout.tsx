@@ -29,6 +29,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${poppins.className}`}>
+      <head><title>Emailify</title>
+      
+      </head>
+      
+
       <body>
         <Providers pageProps={pageProps}>
         <TRPCReactProvider>{children}</TRPCReactProvider>

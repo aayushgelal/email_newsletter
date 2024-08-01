@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
 
+
 export function SideBar() {
   const router = useRouter()
   const { data: session } = useSession()
@@ -25,7 +26,7 @@ export function SideBar() {
   return (
     <div className="h-screen bg-white shadow-md border-r p-5 flex flex-col">
       <div className="flex items-center justify-center mb-8">
-        <h1 className="text-2xl font-bold text-primary">Dashboard</h1>
+        <Image src={'/emailify.png'} alt="Logo" width={200} height={200} />
       </div>
 
       <nav className="flex-grow">
