@@ -7,7 +7,7 @@ const PrivacyPolicy: React.FC = () => {
       <p className="mb-4">Last updated: August 1, 2024</p>
 
       <p className="mb-4">
-        Emailify ("we," "our," or "us") operates the Emailify web application (the "Service"), a bulk email sender that helps users design and send emails in bulk. This privacy policy informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data.
+        Emailify operates the Emailify web application, a bulk email sender that helps users design and send emails in bulk. This privacy policy informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data.
       </p>
 
       <h2 className="text-2xl font-semibold mt-6 mb-4">1. Information Collection and Use</h2>
@@ -16,7 +16,7 @@ const PrivacyPolicy: React.FC = () => {
       <h3 className="text-xl font-semibold mt-4 mb-2">Types of Data Collected:</h3>
       <h4 className="text-lg font-semibold mt-3 mb-2">a) Personal Data</h4>
       <p className="mb-4">
-        While using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you ("Personal Data"). This may include, but is not limited to:
+        While using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you. This may include, but is not limited to:
       </p>
       <ul className="list-disc pl-8 mb-4">
         <li>Email address</li>
@@ -37,7 +37,7 @@ const PrivacyPolicy: React.FC = () => {
 
       <h4 className="text-lg font-semibold mt-3 mb-2">d) Usage Data</h4>
       <p className="mb-4">
-        We collect information on how the Service is accessed and used ("Usage Data"). This may include information such as your device's Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that you visit, the time and date of your visit, the time spent on those pages, unique device identifiers and other diagnostic data.
+        We collect information on how the Service is accessed This may include information such as your device Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that you visit, the time and date of your visit, the time spent on those pages, unique device identifiers and other diagnostic data.
       </p>
 
       <h2 className="text-2xl font-semibold mt-6 mb-4">2. Use of Data</h2>
@@ -86,7 +86,7 @@ const PrivacyPolicy: React.FC = () => {
 
       <h2 className="text-2xl font-semibold mt-6 mb-4">8. Changes to This Privacy Policy</h2>
       <p className="mb-4">
-        We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date at the top of this Privacy Policy.
+        We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the Last updated date at the top of this Privacy Policy.
       </p>
 
       <h2 className="text-2xl font-semibold mt-6 mb-4">9. Contact Us</h2>
