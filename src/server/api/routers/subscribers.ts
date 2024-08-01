@@ -8,7 +8,7 @@ export const subscriberRouter:any = createTRPCRouter({
     .input(z.object({ email: z.string().min(1) }))
     .mutation(async ({ ctx, input }:{ctx:any,input: z.infer<typeof subscriberRouter["input"]>,}) => {
 
-      return ctx.db.subscribers.create({
+      return await ctx.db.subscribers.create({
         data: {
           email: input.email,
           subscribedto:ctx.session.user?.email,

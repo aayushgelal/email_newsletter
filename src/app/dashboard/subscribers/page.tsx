@@ -9,19 +9,19 @@ import { api } from '~/trpc/react';
 const SubscriberList = () => {
   const [email,setEmail]=useState('');
   const subscribers = api.subscribers.getSubscribers.useQuery();
-  const addSubscriber = api.subscribers.create.useMutation({
-    onSuccess: () => {
-      toast.success('Subscriber added successfully!');
-      setEmail('');
-    },
-    onError: (error:Error) => {
-      toast.error(`Failed to add subscriber: ${error.message}`);
-    },
-  });
+  const addSubscriber = api.subscribers.create.useMutation();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    addSubscriber.mutate({ email: email });
+    toast.promise(
+      addSubscriber.mutateAsync({ email: email }),
+      {loading: 'Adding Subscriber',
+        success: 'Added successfully!',
+        error: 'Failed to add Subscriber',
+      }
+
+    )
+    setEmail('');
   };
 
 
@@ -31,8 +31,8 @@ const SubscriberList = () => {
       <h1 className='text-3xl font-bold mb-8 text-gray-800'>Subscribers List</h1>
 
       <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 mb-10">
-        <Input type="email" placeholder="Email" className='flex-grow'/>
-        <Button type="submit" className="w-full md:w-auto">Add a new Subscriber</Button>
+        <Input type="email" placeholder="Email" className='flex-grow' onChange={(e)=>setEmail(e.target.value)} value={email}/>
+        <Button type="submit" className="w-full md:w-auto" onClick={handleSubmit}>Add a new Subscriber</Button>
         <Button type="submit" variant={'outline'} className="w-full md:w-auto">Import</Button>
         <Button type="submit" variant={'outline'} className="w-full md:w-auto">Export</Button>
       </div>

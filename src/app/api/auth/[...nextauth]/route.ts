@@ -1,5 +1,4 @@
 import NextAuth, { AuthOptions, Session } from 'next-auth';
-import { JWT } from 'next-auth/jwt';
 import GoogleProvider from 'next-auth/providers/google';
 
 const nextAuthOptions:AuthOptions=({
